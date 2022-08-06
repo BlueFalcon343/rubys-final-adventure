@@ -6,7 +6,7 @@ using TMPro;
 
 public class RubyController : MonoBehaviour
 {
-    public float speed = 3.0f;
+    public float speed = 5.0f;
 
     public int maxHealth = 5;
     public float timeInvincible = 2.0f;
@@ -37,6 +37,7 @@ public class RubyController : MonoBehaviour
 
     public ParticleSystem hitEffect;
     public ParticleSystem healthEffect;
+    public ParticleSystem poisonEffect;
     public TextMeshProUGUI cogText;
 
 
@@ -53,6 +54,7 @@ public class RubyController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = backgroundMusic;
         audioSource.Play();
+        poisonEffect.Stop();
 
         
     }
@@ -121,6 +123,11 @@ public class RubyController : MonoBehaviour
                     {
                         characterRambi.DisplayDialog();
                     }
+                    TorgCharacter characterTorg = hit.collider.GetComponent<TorgCharacter>();
+                    if (characterTorg != null)
+                    {
+                        characterTorg.DisplayDialog();
+                    }
                 }
             }
         }    
@@ -182,6 +189,34 @@ public class RubyController : MonoBehaviour
     public void SetCogText()
     {
         cogText.text = (cogCount.ToString());
+    }
+
+    public void SpeedUp()
+    {
+        StartCoroutine(Boost());
+    }
+
+    public void PoisonHealth()
+    {
+        poisonEffect.Play();
+        StartCoroutine(Poison());
+    }
+
+    IEnumerator Boost()
+    {
+        speed = 10.0f;
+        yield return new WaitForSeconds(5);
+        speed = 5.0f;
+    }
+
+    IEnumerator Poison()
+    {
+        ChangeHealth(-1);
+        yield return new WaitForSeconds(3);
+        ChangeHealth(-1);
+        yield return new WaitForSeconds(3);
+        ChangeHealth(-1);
+        poisonEffect.Stop();
     }
 
 
