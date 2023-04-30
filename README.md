@@ -1,1 +1,2 @@
 # rubys-final-adventure
+This project is a 2D RPG made in Unity. I did this as a solo project, working off of Unity tutorials for the base of the game and then improving upon that base with my own level design choices and unique mechanics that I added. This game includes unique mechanics that I am particularly proud of, such as enemies that inflict poison damage over time and a speed boost power up.
